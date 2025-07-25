@@ -1,11 +1,11 @@
 modLoader = "javafml"
-loaderVersion = "[5,)"
+loaderVersion = "[4,)"
 issueTrackerURL = "https://github.com/pcal43/fastback"
 license = "GPL2"
 
 [[mods]]
 modId = "fastback"
-version = "0.19.2+1.21.3-prerelease"
+version = "0.19.2+1.21.1-prerelease"
 displayName = "Fast Backups"
 authors = "pcal"
 description = '''
@@ -17,14 +17,14 @@ logoFile = "fastback-icon.png"
 [[dependencies.fastback]]
 modId = "neoforge"
 mandatory = true
-versionRange = "[21.3.29-beta,)"
+versionRange = "[21.1.174,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.fastback]]
 modId = "minecraft"
 mandatory = true
-versionRange = "1.21.3"
+versionRange = "1.21.1"
 ordering = "NONE"
 side = "CLIENT"
 
