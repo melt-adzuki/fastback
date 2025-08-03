@@ -1,9 +1,13 @@
 package net.pcal.fastback.mod.neoforge;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.LevelResource;
@@ -22,6 +26,8 @@ import net.pcal.fastback.mod.LifecycleListener;
 import net.pcal.fastback.mod.MinecraftProvider;
 import org.slf4j.LoggerFactory;
 
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +45,7 @@ import static net.pcal.fastback.logging.SystemLogger.syslog;
 class ForgeCommonProvider implements MinecraftProvider, MixinGateway {
 
     static final String MOD_ID = "fastback";
+    private static final Gson GSON = new Gson();
     private MinecraftServer logicalServer;
     private ModContainer container;
     private LifecycleListener lifecycleListener = null;
@@ -211,6 +218,25 @@ class ForgeCommonProvider implements MinecraftProvider, MixinGateway {
         out.add(FMLPaths.MODSDIR.get());
         out.add(FMLPaths.CONFIGDIR.get());
         out.add(FMLPaths.GAMEDIR.get().resolve("resourcepacks"));
+        return out;
+    }
+
+    @Override
+    public Component messageToText(final UserMessage m) {
+        final MutableComponent out;
+        if (m.localized() != null) {
+            // TODO: Add ability to change language on server side
+            var stream = requireNonNull(ClassLoader.getSystemResourceAsStream("assets/fastback/lang/en_us.json"));
+            var jsonObject = GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), JsonObject.class);
+
+            var value = jsonObject.get(m.localized().key()).getAsString();
+            var formatted = String.format(value, m.localized().params());
+
+            out = Component.literal(formatted);
+        } else {
+            out = Component.literal(m.raw());
+        }
+        MinecraftProvider.setStyle(m, out);
         return out;
     }
 }
