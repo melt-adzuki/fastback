@@ -152,7 +152,7 @@ public interface MinecraftProvider {
         return out;
     }
 
-    static void setStyle(UserMessage m, MutableComponent out) {
+    static void setStyle(final UserMessage m, final MutableComponent out) {
         switch (m.style()) {
             case ERROR -> {
                 out.setStyle(EMPTY.withColor(TextColor.fromLegacyFormat(RED)));

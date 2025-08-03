@@ -226,11 +226,11 @@ class ForgeCommonProvider implements MinecraftProvider, MixinGateway {
         final MutableComponent out;
         if (m.localized() != null) {
             // TODO: Add ability to change language on server side
-            var stream = requireNonNull(ClassLoader.getSystemResourceAsStream("assets/fastback/lang/en_us.json"));
-            var jsonObject = GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), JsonObject.class);
+            final var stream = requireNonNull(ClassLoader.getSystemResourceAsStream("assets/fastback/lang/en_us.json"));
+            final var jsonObject = GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), JsonObject.class);
 
-            var value = jsonObject.get(m.localized().key()).getAsString();
-            var formatted = String.format(value, m.localized().params());
+            final var value = jsonObject.get(m.localized().key()).getAsString();
+            final var formatted = String.format(value, m.localized().params());
 
             out = Component.literal(formatted);
         } else {
