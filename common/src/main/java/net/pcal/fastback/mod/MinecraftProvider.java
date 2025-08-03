@@ -141,13 +141,18 @@ public interface MinecraftProvider {
     /**
      * Utility class that implementing classes can use to perform a standard conversion of UserMessage to minecraft Text.
      */
-    static Component messageToText(final UserMessage m) {
+    default Component messageToText(final UserMessage m) {
         final MutableComponent out;
         if (m.localized() != null) {
             out = Component.translatable(m.localized().key(), m.localized().params());
         } else {
             out = Component.literal(m.raw());
         }
+        setStyle(m, out);
+        return out;
+    }
+
+    static void setStyle(UserMessage m, MutableComponent out) {
         switch (m.style()) {
             case ERROR -> {
                 out.setStyle(EMPTY.withColor(TextColor.fromLegacyFormat(RED)));
@@ -162,7 +167,5 @@ public interface MinecraftProvider {
                 out.setStyle(EMPTY.withColor(TextColor.fromLegacyFormat(GREEN)));
             }
         }
-        return out;
     }
-
 }

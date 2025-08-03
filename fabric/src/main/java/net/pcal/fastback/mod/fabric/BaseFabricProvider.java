@@ -47,7 +47,6 @@ import java.util.Optional;
 import static java.util.Objects.requireNonNull;
 import static net.pcal.fastback.commands.Commands.createBackupCommand;
 import static net.pcal.fastback.logging.SystemLogger.syslog;
-import static net.pcal.fastback.mod.MinecraftProvider.messageToText;
 import static net.pcal.fastback.mod.MinecraftProvider.register;
 
 /**

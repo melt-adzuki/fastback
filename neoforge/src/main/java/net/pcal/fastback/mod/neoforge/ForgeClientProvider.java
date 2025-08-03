@@ -11,7 +11,6 @@ import net.pcal.fastback.logging.UserMessage;
 
 import static java.util.Objects.requireNonNull;
 import static net.pcal.fastback.logging.SystemLogger.syslog;
-import static net.pcal.fastback.mod.MinecraftProvider.messageToText;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

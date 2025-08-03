@@ -32,7 +32,6 @@ import net.pcal.fastback.mod.fabric.mixins.ScreenAccessors;
 import java.nio.file.Path;
 
 import static net.pcal.fastback.logging.SystemLogger.syslog;
-import static net.pcal.fastback.mod.MinecraftProvider.messageToText;
 
 /**
  * @author pcal
